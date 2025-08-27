@@ -1,0 +1,180 @@
+/* style.css */
+
+:root {
+    --primary-blue: #143968;
+    --primary-teal: #14d2aa;
+    --secondary-teal: #16ceaa;
+    --secondary-blue: #063db3;
+    --accent-teal: #19cc98;
+    --accent-blue: #173a67;
+    --light-teal: #11d1c1;
+    --bright-blue: #084cea;
+    --cyan: #0cd4db;
+}
+
+.bg-primary-blue { background-color: var(--primary-blue); }
+.bg-primary-teal { background-color: var(--primary-teal); }
+.bg-secondary-teal { background-color: var(--secondary-teal); }
+.bg-secondary-blue { background-color: var(--secondary-blue); }
+.text-primary-blue { color: var(--primary-blue); }
+.text-primary-teal { color: var(--primary-teal); }
+.border-primary-teal { border-color: var(--primary-teal); }
+.hover\:bg-secondary-teal:hover { background-color: var(--secondary-teal); }
+.hover\:bg-secondary-blue:hover { background-color: var(--secondary-blue); }
+
+.calculation-table th {
+    background-color: var(--primary-blue);
+    color: white;
+}
+
+.calculation-table td {
+    border: 1px solid #e5e7eb;
+}
+
+.calculation-table {
+    width: auto;
+    table-layout: auto;
+}
+
+.user-dropdown {
+    display: none;
+}
+
+.user-dropdown.show {
+    display: block;
+}
+
+.upload-area {
+    border: 2px dashed var(--primary-teal);
+    transition: all 0.3s ease;
+}
+
+.upload-area:hover {
+    border-color: var(--secondary-teal);
+    background-color: #f0fdfa;
+}
+
+/* Sidebar styles */
+#sidebar {
+    width: 60px !important; /* Inicia fechado (apenas ícones) */
+}
+
+#sidebarToggle i {
+    color: #70A6C0;
+}
+
+#sidebar.open {
+    width: 256px !important; /* Expande para o tamanho normal (w-64) */
+}
+
+#sidebar .lg\:sidebar-text {
+    display: none;
+    opacity: 0;
+}
+
+#sidebar.open .lg\:sidebar-text {
+    display: inline-block;
+    opacity: 1;
+    transition: opacity 0.3s ease-in-out;
+}
+
+/* Adjust button padding to prevent content shift */
+#sidebar .sidebar-item {
+    padding-left: 1rem; /* 16px */
+    padding-right: 1rem; /* 16px */
+}
+
+/* Regras gerais para o corpo do documento */
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #f9fafb;
+    color: #374151;
+}
+
+/* Reduz o tamanho da fonte dos cabeçalhos da tabela */
+.calculation-table thead th {
+    font-size: 0.75rem; /* 12px */
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+    white-space: nowrap; /* Impede a quebra de linha nos cabeçalhos */
+}
+
+/* Reduz o tamanho da fonte do corpo da tabela e ajusta o padding */
+.calculation-table tbody td {
+    font-size: 0.8125rem; /* 13px */
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+}
+
+/* Ajusta o tamanho da fonte dos inputs dentro da tabela */
+.calculation-table tbody input {
+    font-size: 0.8125rem; /* 13px */
+    padding-left: 0.25rem;
+    padding-right: 0.25rem;
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+}
+
+/* Estilo para as linhas pares da tabela */
+.calculation-table tbody tr:nth-child(even) {
+    background-color: #f3f4f6; /* Cor de fundo para melhor legibilidade */
+}
+
+/* Garante que o input da Lei Aplicada não quebre a linha */
+.calculation-table .lei-aplicada {
+    white-space: nowrap;
+}
+
+/* Estilos para o dropdown de usuário e menu lateral */
+.user-dropdown.show {
+    display: block;
+    animation: fadeIn 0.3s ease-out;
+}
+
+.user-dropdown {
+    display: none;
+}
+
+#sidebar.open {
+    width: 256px; /* lg:w-64 */
+}
+
+#sidebar .lg\:sidebar-text {
+    display: none;
+}
+
+#sidebar.open .lg\:sidebar-text {
+    display: inline;
+}
+
+/* Efeito de transição para o hover */
+.sidebar-item:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Estilo para a área de upload */
+.upload-area {
+    border: 2px dashed #d1d5db;
+    background-color: #f3f4f6;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.upload-area:hover {
+    background-color: #e5e7eb;
+}
+
+/* Animações */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
