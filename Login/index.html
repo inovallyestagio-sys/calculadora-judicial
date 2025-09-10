@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Sistema de Calculadora Jurídica</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+        rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Estilo para a cor do placeholder */
+        .placeholder-custom::placeholder {
+            color: #858585;
+        }
+    </style>
+</head>
+
+<body class="font-sans">
+    <div class="relative min-h-screen flex items-center justify-center bg-gray-200 p-4">
+        <!-- Imagem de Fundo -->
+        <div class="absolute inset-0 bg-cover bg-center z-0" style="background-image: url('/Login/assets/background.png');">
+        </div>
+
+        <!-- Camada de Gradiente com Opacidade -->
+        <div class="absolute inset-0 bg-gradient-to-br from-[#143968] to-[#14d2aa] opacity-40 z-10"></div>
+
+        <!-- Quadro de Login Redimensionado -->
+        <div class="relative z-20 bg-white rounded-2xl shadow-xl w-full max-w-lg flex flex-col items-center p-8 sm:p-12">
+            <!-- Logo -->
+            <div class="mt-8">
+                <img src="/app/Login/assets/logo-inovally.png" alt="Logo Inovally" class="h-24">
+            </div>
+
+            <!-- Texto "Acesse sua conta" -->
+            <h1 class="mt-8 text-3xl font-semibold" style="color: #16B499;">
+                Acesse sua conta
+            </h1>
+
+            <!-- Formulário -->
+            <form id="loginForm" class="w-full flex flex-col items-center mt-8">
+                <div class="w-full">
+                    <!-- Input de Usuário -->
+                    <div class="mb-6">
+                        <label for="email" class="block text-xl font-medium mb-2" style="color: #143968;">Usuário</label>
+                        <input type="email" id="email"
+                               class="w-full h-14 px-4 border border-gray-300 rounded-lg text-base focus:ring-2 focus:ring-[#14d2aa] focus:border-transparent placeholder-custom"
+                               placeholder="insira seu e-mail" required>
+                    </div>
+
+                    <!-- Input de Senha -->
+                    <div>
+                        <label for="password" class="block text-xl font-medium mb-2" style="color: #143968;">Senha</label>
+                        <input type="password" id="password"
+                               class="w-full h-14 px-4 border border-gray-300 rounded-lg text-base focus:ring-2 focus:ring-[#14d2aa] focus:border-transparent placeholder-custom"
+                               placeholder="insira sua senha" required>
+                    </div>
+                </div>
+
+                <!-- Link "Esqueceu sua senha?" -->
+                <div class="w-full mt-4 text-right">
+                    <a href="#" class="text-sm text-gray-600 italic hover:text-primary-blue hover:underline">
+                        esqueceu sua senha?
+                    </a>
+                </div>
+
+                <!-- Botão Acessar -->
+                <div class="mt-10 w-full">
+                     <button type="submit"
+                            class="w-full h-14 bg-white border-2 text-xl font-bold transition-all duration-300 ease-in-out hover:bg-[#72FFB3] hover:text-white"
+                            style="border-color: #72FFB3; color: #72FFB3; border-radius: 64px;">
+                         Acessar
+                     </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Impede o envio padrão do formulário
+
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            // --- Usuário Fictício para Teste ---
+            const mockUser = {
+                email: 'amanda@operador.com',
+                password: '123456',
+                role: 'operador',
+                redirectUrl: 'Operador/index.html' // Caminho relativo para a página do operador
+            };
+            
+            // Validação
+            if (email === mockUser.email && password === mockUser.password) {
+                alert('Login bem-sucedido! Redirecionando...');
+                window.location.href = mockUser.redirectUrl; // Redireciona para a página do operador
+            } else {
+                alert('Usuário ou senha inválidos. Tente novamente.');
+            }
+        });
+
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                     colors: {
+                        'primary-blue': '#143968',
+                        'primary-teal': '#14d2aa',
+                    }
+                },
+            },
+        };
+    </script>
+</body>
+
+</html>
+

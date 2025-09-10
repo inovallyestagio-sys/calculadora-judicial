@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parâmetros do Sistema - Sistema de Calculadora Jurídica</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+        rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="bg-gray-50 font-sans flex flex-col min-h-screen">
+
+    <header class="bg-gradient-to-r from-[#143968] to-[#14d2aa] text-white shadow-lg z-50 h-16">
+        <div class="flex items-center justify-between px-1 py-1">
+            <button id="sidebarToggle" class="text-white text-lg mr-4">
+                <a href="home.html"
+                    class="sidebar-item flex items-center space-x-3 px-4 py-3 hover:bg-white hover:bg-opacity-20 transition-all">
+                    <i class="fas fa-home"></i>
+                    <span
+                        class="lg:sidebar-text transition-all duration-300 ease-in-out whitespace-nowrap hidden">Início</span>
+                </a>
+            </button>
+            <div class="logo-inovally">
+                <a href="#" id="logo-produto">
+                    <img src="/Administrador/assets/Group 338.svg" alt="logo-inovally" class="h-12 w-28">
+                </a>
+            </div>
+            <div class="relative ml-auto">
+                <button id="userDropdownBtn" class="flex items-center space-x-3 px-3 py-2 rounded-lg transition-colors">
+                    <div class="text-right hidden sm:block">
+                        <p class="text-sm font-medium">Olá, Maria</p>
+                        <p class="text-xs opacity-80">Administrador</p>
+                    </div>
+                    <div class="w-10 h-10 bg-primary-teal rounded-full flex items-center justify-center">
+                        <i class="fas fa-user text-white"></i>
+                    </div>
+                    <i class="fas fa-chevron-down text-xs hidden sm:block"></i>
+                </button>
+                <div id="userDropdown"
+                    class="user-dropdown absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border z-50">
+                    <a href="#" class="block px-4 py-3 text-gray-700 hover:bg-gray-50 border-b">
+                        <i class="fas fa-cog mr-2"></i>Configurar Conta
+                    </a>
+                    <a href="#" class="block px-4 py-3 text-gray-700 hover:bg-gray-50">
+                        <i class="fas fa-sign-out-alt mr-2"></i>Sair
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="flex flex-1">
+        <aside id="sidebar"
+            class="w-20 lg:w-64 bg-gradient-to-b from-[#143968] to-[#14d2aa] text-white shadow-lg transition-all duration-300 ease-in-out z-40">
+            <nav class="flex-1">
+                <ul class="space-y-4">
+                    <li>
+                        <a href="index.html"
+                            class="sidebar-item flex flex-col items-center px-4 py-3 hover:bg-white hover:bg-opacity-20 transition-all">
+                            <i class="fas fa-users text-lg mb-1"></i>
+                            <span class="text-[10px] text-center">Usuários</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="parametros.html"
+                            class="sidebar-item flex flex-col items-center px-4 py-3 bg-[#14d2aa] bg-opacity-100">
+                            <i class="fas fa-wrench text-lg mb-1"></i>
+                            <span class="text-[10px] text-center">Parâmetros</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="reports.html"
+                            class="sidebar-item flex flex-col items-center px-4 py-3 hover:bg-white hover:bg-opacity-20 transition-all">
+                            <i class="fas fa-chart-bar text-lg mb-1"></i>
+                            <span class="text-[10px]">Relatórios</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="flex-1 p-6 overflow-auto">
+            <div class="max-w-7xl mx-auto">
+                <div class="mb-6">
+                    <h2 class="text-3xl font-bold text-primary-blue mb-2">Parâmetros do Sistema</h2>
+                    <p>Gerencie índices de correção, tabelas e outras configurações globais.</p>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-lg p-6">
+                    <div class="mb-8 flex items-center justify-between">
+                        <h3 class="text-xl text-primary-blue mb-4">Índices de Correção</h3>
+                        <button
+                            class="bg-primary-blue hover:bg-secondary-blue text-white px-4 py-2 rounded-lg transition-colors">
+                            <i class="fas fa-plus mr-2"></i>Novo Índice
+                        </button>
+                    </div>
+
+                    <div class="overflow-x-auto">
+                        <table class="w-full table-auto text-left whitespace-nowrap">
+                            <thead>
+                                <tr class="bg-gray-100 border-b border-gray-200">
+                                    <th class="p-4"><input type="checkbox" class="form-checkbox"></th>
+                                    <th class="px-4 py-3 text-sm font-semibold text-gray-700">Nome do Índice</th>
+                                    <th class="px-4 py-3 text-sm font-semibold text-gray-700">De</th>
+                                    <th class="px-4 py-3 text-sm font-semibold text-gray-700">Até</th>
+                                    <th class="px-4 py-3 text-sm font-semibold text-gray-700">Descrição</th>
+                                    <th class="px-4 py-3 text-sm font-semibold text-gray-700">Taxa</th>
+                                    <th class="px-4 py-3 text-sm font-semibold text-gray-700">Última Atualização</th>
+                                    <th class="px-4 py-3 text-sm font-semibold text-gray-700">Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="border-b border-gray-200 hover:bg-gray-50">
+                                    <td class="p-4"><input type="checkbox" class="form-checkbox"></td>
+                                    <td class="px-4 py-3">INPC</td>
+                                    <td class="px-4 py-3">03/1991</td>
+                                    <td class="px-4 py-3">11/1991</td>
+                                    <td class="px-4 py-3">Índice Nacional de Preços ao Consumidor</td>
+                                    <td class="px-4 py-3">1,5%</td>
+                                    <td class="px-4 py-3">22/08/2025</td>
+                                    <td class="px-4 py-3">
+                                        <button class="text-blue-500 hover:text-blue-700 mr-2" title="Editar">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="text-red-500 hover:text-red-700" title="Remover">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr class="border-b border-gray-200 hover:bg-gray-50">
+                                    <td class="p-4"><input type="checkbox" class="form-checkbox"></td>
+                                    <td class="px-4 py-3">IPCA-E</td>
+                                    <td class="px-4 py-3">11/1991</td>
+                                    <td class="px-4 py-3">12/1991</td>
+                                    <td class="px-4 py-3">Índice Nacional de Preços ao Consumidor Amplo Especial</td>
+                                    <td class="px-4 py-3">0,8%</td>
+                                    <td class="px-4 py-3">22/08/2025</td>
+                                    <td class="px-4 py-3">
+                                        <button class="text-blue-500 hover:text-blue-700 mr-2" title="Editar">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="text-red-500 hover:text-red-700" title="Remover">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr class="border-b border-gray-200 hover:bg-gray-50">
+                                    <td class="p-4"><input type="checkbox" class="form-checkbox"></td>
+                                    <td class="px-4 py-3">IPCA-E</td>
+                                    <td class="px-4 py-3">12/2000</td>
+                                    <td class="px-4 py-3">12/2009</td>
+                                    <td class="px-4 py-3">Índice Nacional de Preços ao Consumidor Amplo Especial</td>
+                                    <td class="px-4 py-3">0,9%</td>
+                                    <td class="px-4 py-3">22/08/2025</td>
+                                    <td class="px-4 py-3">
+                                        <button class="text-blue-500 hover:text-blue-700 mr-2" title="Editar">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="text-red-500 hover:text-red-700" title="Remover">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr class="border-b border-gray-200 hover:bg-gray-50">
+                                    <td class="p-4"><input type="checkbox" class="form-checkbox"></td>
+                                    <td class="px-4 py-3">TR/IPCA-E</td>
+                                    <td class="px-4 py-3">12/2009</td>
+                                    <td class="px-4 py-3">03/2015</td>
+                                    <td class="px-4 py-3">Taxa Referencial  Índice Nacional de Preços ao Consumidor Amplo</td>
+                                    <td class="px-4 py-3">1,53%</td>
+                                    <td class="px-4 py-3">22/08/2025</td>
+                                    <td class="px-4 py-3">
+                                        <button class="text-blue-500 hover:text-blue-700 mr-2" title="Editar">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="text-red-500 hover:text-red-700" title="Remover">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="script.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                },
+            },
+        };
+    </script>
+</body>
+
+</html>

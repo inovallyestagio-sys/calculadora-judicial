@@ -1,0 +1,55 @@
+/* style.css otimizado */
+
+/* Estilos para o modal de configuração */
+.modal {
+    background-color: rgba(0, 0, 0, 0.5);
+    transition: opacity 0.3s ease-in-out;
+}
+.modal-content {
+    transition: transform 0.3s ease-in-out;
+    transform: translateY(-50px);
+    max-height: 90vh; /* Permite rolagem em telas menores */
+    overflow-y: auto;
+}
+.modal.open .modal-content {
+    transform: translateY(0);
+}
+
+/* Animação e controle de visibilidade para o dropdown do usuário */
+.user-dropdown {
+    display: none;
+}
+.user-dropdown.show {
+    display: block;
+    animation: fadeIn 0.3s ease-out;
+}
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Regras específicas para impressão */
+@media print {
+    body * {
+        visibility: hidden;
+    }
+    #requerentes-tables-container,
+    #requerentes-tables-container * {
+        visibility: visible;
+    }
+    #requerentes-tables-container {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+    }
+    .no-print {
+        display: none;
+    }
+}
