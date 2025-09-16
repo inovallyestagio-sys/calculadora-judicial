@@ -163,6 +163,7 @@ class CivelCalculator {
         const honorariosPercent = this.container.querySelector('#honorarios-percent').valueAsNumber || 0;
         const modalidade = this.container.querySelector('input[name="modalidadePagamento"]:checked').value;
         
+        // Simulação da lógica de cálculo em etapas
         const valorCorrigido1 = valorDivida * 1.2;
         const juros1 = valorCorrigido1 * 0.1;       
         const subtotal1 = valorCorrigido1 + juros1;
@@ -177,7 +178,7 @@ class CivelCalculator {
                 <table class="calculation-table w-full border-collapse table-auto">
                     <thead>
                         <tr class="bg-gray-200 text-gray-700 uppercase text-xs leading-normal">
-                            <th class="py-3 px-4 text-left">Período / Etapa de Correção</th>
+                            <th class="py-3 px-4 text-left">Etapa de Correção</th>
                             <th class="py-3 px-4 text-right">Valor Base</th>
                             <th class="py-3 px-4 text-right">Correção Monetária</th>
                             <th class="py-3 px-4 text-right">Juros Aplicados</th>
@@ -186,14 +187,14 @@ class CivelCalculator {
                     </thead>
                     <tbody class="bg-white text-gray-600 text-sm font-light divide-y divide-gray-200">
                         <tr>
-                            <td class="py-2 px-3">Período 1 (Ex: TR + Juros)</td>
+                            <td class="py-2 px-3">Correção de 15/06/2018 a 31/12/2021 (IPCA-E + Juros)</td>
                             <td class="py-2 px-3 text-right">${this.formatToCurrency(valorDivida)}</td>
                             <td class="py-2 px-3 text-right">${this.formatToCurrency(valorCorrigido1 - valorDivida)}</td>
                             <td class="py-2 px-3 text-right">${this.formatToCurrency(juros1)}</td>
                             <td class="py-2 px-3 text-right font-medium">${this.formatToCurrency(subtotal1)}</td>
                         </tr>
                         <tr>
-                            <td class="py-2 px-3">Período 2 (Ex: SELIC)</td>
+                            <td class="py-2 px-3">Correção de 01/01/2022 a 20/10/2025 (SELIC)</td>
                             <td class="py-2 px-3 text-right">${this.formatToCurrency(subtotal1)}</td>
                             <td class="py-2 px-3 text-right" colspan="2">Correção e Juros Unificados pela SELIC</td>
                             <td class="py-2 px-3 text-right font-medium">${this.formatToCurrency(valorFinal)}</td>
