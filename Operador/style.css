@@ -1,5 +1,3 @@
-/* style.css otimizado */
-
 /* Estilos para o modal de configuração */
 .modal {
     background-color: rgba(0, 0, 0, 0.5);
@@ -36,20 +34,13 @@
 
 /* Regras específicas para impressão */
 @media print {
-    body * {
-        visibility: hidden;
-    }
-    #requerentes-tables-container,
-    #requerentes-tables-container * {
-        visibility: visible;
-    }
-    #requerentes-tables-container {
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 100%;
-    }
-    .no-print {
-        display: none;
-    }
+    body * { visibility: hidden; }
+    /* Apenas esta área será visível na impressão */
+    #print-area, #print-area * { visibility: visible; }
+    #print-area { position: absolute; left: 0; top: 0; width: 100%; padding: 1.5cm; font-size: 10pt; }
+    .no-print { display: none !important; }
+    .calculation-table { width: 100% !important; table-layout: fixed; border-collapse: collapse; font-size: 8pt; }
+    .calculation-table th, .calculation-table td { border: 1px solid #ccc; padding: 4px 6px; word-wrap: break-word; text-align: left; }
+    .calculation-table th { background-color: #f2f2f2 !important; color: #000 !important; -webkit-print-color-adjust: exact; color-adjust: exact; }
+    .calculation-table td:nth-child(n+3) { text-align: right; }
 }
