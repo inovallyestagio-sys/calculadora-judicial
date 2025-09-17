@@ -49,7 +49,7 @@ class FiscalCalculator {
                 </div>
 
                 <div id="fiscal-params" class="mb-8">
-                    <h3 class="text-xl font-semibold text-primary-blue mb-4">3. Parâmetros do Cálculo</h3>
+                    <h3 class="text-xl font-semibold text-primary-blue mb-4">3. Parâmetros do Cálculo Fiscal</h3>
                     <div class="bg-gray-50 p-6 rounded-lg border grid grid-cols-1 md:grid-cols-3 gap-6">
                          <div><label class="block text-sm font-medium text-gray-700 mb-2">Data da Correção</label><input type="date" id="dataCorrecao" class="w-full px-3 py-2 border border-gray-300 rounded-lg"></div>
                          <div><label class="block text-sm font-medium text-gray-700 mb-2">Índice (Automático)</label><input type="text" id="indice-param" class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-100" readonly></div>

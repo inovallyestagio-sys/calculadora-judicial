@@ -34,7 +34,7 @@ class CivelCalculator {
     static getHtml() {
         return `
             <div id="formFields">
-                <div class="mb-8"><p class="text-gray-600">Tipo de Cálculo > Cível</p></div>
+                <div class="mb-8"><p class="text-gray-600">Tipo de Cálculo > Divida Pública</p></div>
                 <div class="mb-8"><h3 class="text-xl font-semibold text-primary-blue mb-4">1. Upload e Extração de Dados</h3><div id="uploadArea" class="upload-area p-8 rounded-lg text-center cursor-pointer border-2 border-dashed border-gray-300 hover:border-primary-teal transition-colors"><i class="fas fa-cloud-upload-alt text-4xl text-primary-teal mb-4"></i><p class="text-gray-600 mb-2">Clique para simular a extração de dados</p></div></div>
                 
                 <div class="mb-8"><h3 class="text-xl font-semibold text-primary-blue mb-4">2. Dados do Processo</h3>
@@ -47,7 +47,7 @@ class CivelCalculator {
                 </div>
 
                 <div id="civel-params" class="mb-8">
-                    <h3 class="text-xl font-semibold text-primary-blue mb-4">3. Parâmetros do Cálculo</h3>
+                    <h3 class="text-xl font-semibold text-primary-blue mb-4">3. Parâmetros do Cálculo Divida Pública</h3>
                     <div class="bg-gray-50 p-6 rounded-lg border space-y-6">
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-x-6 gap-y-4 items-start">
                             <div class="md:col-span-3">
@@ -80,7 +80,9 @@ class CivelCalculator {
                             <div><label class="block text-sm font-medium text-gray-700 mb-2">Data Início do Cálculo</label><input type="date" id="dataInicioCalculo" class="w-full px-3 py-2 border border-gray-300 rounded-lg"></div>
                             <div><label class="block text-sm font-medium text-gray-700 mb-2">Data Final (Data do Pagamento)</label><input type="date" id="dataPagamento" class="w-full px-3 py-2 border border-gray-300 rounded-lg"></div>
                             <div><label class="block text-sm font-medium text-gray-700 mb-2">Honorários (%)</label><input type="number" id="honorarios-percent" class="w-full px-3 py-2 border border-gray-300 rounded-lg" placeholder="Ex: 10"></div>
+                            <div class="md:col-span-2"><label class="block text-sm font-medium text-gray-700 mb-2">Notas / Observações</label><textarea id="notas" rows="3" class="w-full px-4 py-3 border border-gray-300 rounded-lg"></textarea></div>
                         </div>
+                        
                     </div>
                 </div>
 
@@ -94,10 +96,6 @@ class CivelCalculator {
                     <p id="valorFinalDevido" class="text-3xl font-bold mt-2">R$ 0,00</p>
                 </div>
 
-                <div class="mt-6">
-                     <label class="block text-sm font-medium text-gray-700 mb-2">Notas / Observações</label>
-                     <textarea id="notas" rows="4" class="w-full px-3 py-2 border border-gray-300 rounded-lg"></textarea>
-                </div>
                 
                 <div class="flex flex-wrap gap-4 justify-center mt-8 no-print">
                     <button id="saveBtn" class="bg-secondary-blue hover:bg-primary-blue text-white px-8 py-3 rounded-lg font-semibold"><i class="fas fa-save mr-2"></i>Salvar Cálculo</button>
@@ -140,7 +138,7 @@ class CivelCalculator {
     }
 
     simularExtracao() {
-        alert(`Simulando extração de dados para CÁLCULO CÍVEL...`);
+        alert(`Simulando extração de dados para DIVIDA PÚBLICA...`);
         this.container.querySelector('#processNumber').value = this.mockProcesso.processNumber;
         this.container.querySelector('#requerentesInput').value = this.mockProcesso.credor;
         this.container.querySelector('#devedor').value = this.mockProcesso.devedor;
@@ -161,7 +159,7 @@ class CivelCalculator {
         const leiArtigoSelect = this.container.querySelector('#leiArtigo');
         const indiceInput = this.container.querySelector('#indice-param');
 
-        if (modalidade === 'RPV') {
+        if (modalidade === 'Precatório') {
             leiArtigoSelect.value = 'EC 113/2021';
         } else { // Para RPV e Comum, o padrão é o cálculo automático em cadeia
             leiArtigoSelect.value = 'automatico';

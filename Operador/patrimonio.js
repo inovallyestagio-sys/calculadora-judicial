@@ -4,16 +4,16 @@ class PatrimonioCalculator {
         this.mockProcesso = {
             processNumber: '3333333-33.2025.8.11.0003',
             requerentes: ["João Patrimônio"],
-            valorHomologado: 50000.00,
-            dataCitacao: '2021-06-30', // Data para cálculo dos juros moratórios
-            taxaJurosCompensatoriosAnual: 0.06 // 6% a.a. (limite STF)
+            valorCondenacao: 50000.00,
+            valorPerito: 110457.00, // Novo campo
+            honorariosPercent: 10, // Novo campo
+            dataCitacao: '2021-06-30',
+            taxaJurosCompensatoriosAnual: 0.06
         };
-        // Mock dos bens que compõem o valor homologado
         this.mockPatrimonioData = [
             { dados: 'Imóvel Urbano', valor: 35000.00 },
             { dados: 'Veículo', valor: 15000.00 },
         ];
-        // Base de taxas simuladas para os índices
         this.mockIndicesTaxas = {
             'TR': 0.0015,
             'IPCA-E': 0.004,
@@ -40,7 +40,8 @@ class PatrimonioCalculator {
                         <div><label class="block text-sm font-medium text-gray-700 mb-2">Parte Requerente(s)</label><input type="text" id="requerentesInput" class="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-100" readonly></div>
                         <div class="md:col-span-1"><label class="block text-sm font-medium text-gray-700 mb-2">Início</label><input type="text" id="apuracao-inicio" class="w-full px-3 py-2 border border-gray-300 rounded-lg" placeholder="mm/aaaa" maxlength="7"></div>
                         <div class="md:col-span-1"><label class="block text-sm font-medium text-gray-700 mb-2">Fim</label><input type="text" id="apuracao-fim" class="w-full px-3 py-2 border border-gray-300 rounded-lg" placeholder="mm/aaaa" maxlength="7"></div>
-                        <div><label class="block text-sm font-medium text-gray-700 mb-2">Valor Homologado</label><input type="text" id="valorHomologado" class="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-100" readonly></div>
+                        <div><label class="block text-sm font-medium text-gray-700 mb-2">Valor da Condenação</label><input type="text" id="valorCondenacao" class="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-100"></div>
+                        <div><label class="block text-sm font-medium text-gray-700 mb-2">Valor Solicitado (Perito)</label><input type="text" id="valorPerito" class="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-100"></div>
                     </div>
                 </div>
 
@@ -51,7 +52,7 @@ class PatrimonioCalculator {
                             <div><label class="block text-sm font-medium text-gray-700 mb-2">Dados Patrimoniais (Extraído)</label><input type="text" id="dados-patrimoniais" class="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-100" readonly></div>
                             <div><label class="block text-sm font-medium text-gray-700 mb-2">Lei Aplicada (Automático)</label><input type="text" id="lei-aplicada-param" class="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-100" readonly></div>
                             <div><label class="block text-sm font-medium text-gray-700 mb-2">Índice (Automático)</label><input type="text" id="indice-param" class="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-100" readonly></div>
-                            <div><label class="block text-sm font-medium text-gray-700 mb-2">Juros (Automático)</label><input type="text" id="juros-param" class="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-100" readonly></div>
+                            <div><label class="block text-sm font-medium text-gray-700 mb-2">Honorários (%)</label><input type="number" id="honorarios-percent" class="w-full px-4 py-3 border border-gray-300 rounded-lg" placeholder="Ex: 10"></div>
                             <div class="md:col-span-2"><label class="block text-sm font-medium text-gray-700 mb-2">Observações do Procurador</label><textarea id="observacoes" rows="3" class="w-full px-4 py-3 border border-gray-300 rounded-lg"></textarea></div>
                         </div>
                     </div>
@@ -60,7 +61,7 @@ class PatrimonioCalculator {
                 <div class="flex justify-start mb-8"><button id="calculateBtn" class="bg-secondary-blue hover:bg-primary-blue text-white px-8 py-3 rounded-lg font-semibold"><i class="fas fa-calculator mr-2"></i>Calcular Valor</button></div>
                 <hr class="my-8"><div id="results-container"></div>
                 <div class="summary-container mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div class="summary-box bg-white p-6 rounded-lg shadow-lg border"><p class="text-sm text-gray-500 mb-2">VALOR HOMOLOGADO</p><p class="text-2xl font-bold text-primary-blue" id="valorExecutadoSummary">R$ 0,00</p></div>
+                    <div class="summary-box bg-white p-6 rounded-lg shadow-lg border"><p class="text-sm text-gray-500 mb-2">VALOR SOLICITADO</p><p class="text-2xl font-bold text-primary-blue" id="valorExecutadoSummary">R$ 0,00</p></div>
                     <div class="summary-box bg-white p-6 rounded-lg shadow-lg border"><p class="text-sm text-gray-500 mb-2">VALOR REVISADO</p><p class="text-2xl font-bold text-primary-blue" id="valorAtualizadoSummary">R$ 0,00</p></div>
                     <div class="summary-box bg-white p-6 rounded-lg shadow-lg border"><p class="text-sm text-gray-500 mb-2">DIFERENÇA</p><p class="text-2xl font-bold text-primary-blue" id="proveitoEconomicoSummary">R$ 0,00</p></div>
                 </div>
@@ -101,7 +102,9 @@ class PatrimonioCalculator {
         alert(`Simulando extração de dados para PATRIMÔNIO...`);
         this.container.querySelector('#processNumber').value = this.mockProcesso.processNumber;
         this.container.querySelector('#requerentesInput').value = this.mockProcesso.requerentes.join(', ');
-        this.container.querySelector('#valorHomologado').value = this.formatToCurrency(this.mockProcesso.valorHomologado);
+        this.container.querySelector('#valorCondenacao').value = this.formatToCurrency(this.mockProcesso.valorHomologado); // Renomeei o ID no HTML
+        this.container.querySelector('#valorPerito').value = this.formatToCurrency(this.mockProcesso.valorPerito);
+        this.container.querySelector('#honorarios-percent').value = this.mockProcesso.honorariosPercent;
         this.container.querySelector('#apuracao-inicio').value = '01/2020';
         this.container.querySelector('#apuracao-fim').value = '09/2025';
 
@@ -114,17 +117,13 @@ class PatrimonioCalculator {
     updateLegalParameters() {
         const inicioStr = this.container.querySelector('#apuracao-inicio').value;
         if (!inicioStr || inicioStr.length < 7) return;
-        
+
         const startDate = this.parseMaskedDate(inicioStr);
         const startYear = startDate.getFullYear();
-        
+
         let lei, indice, jurosMoratorios;
 
-        if (startYear < 2012) {
-            lei = 'Lei 9.494/97';
-            indice = 'TR';
-            jurosMoratorios = '0.5% a.m.';
-        } else if (startYear < 2021) {
+        if (startYear < 2021) {
             lei = 'Lei 11.960/09';
             indice = 'IPCA-E';
             jurosMoratorios = '0.5% a.m.';
@@ -133,12 +132,11 @@ class PatrimonioCalculator {
             indice = 'SELIC';
             jurosMoratorios = 'SELIC';
         }
-        
+
         const jurosCompensatorios = `${this.mockProcesso.taxaJurosCompensatoriosAnual * 100}% a.a.`;
 
         this.container.querySelector('#lei-aplicada-param').value = lei;
         this.container.querySelector('#indice-param').value = indice;
-        this.container.querySelector('#juros-param').value = `Compensatórios: ${jurosCompensatorios} | Moratórios: ${jurosMoratorios}`;
     }
 
     calcularValoresPatrimonio() {
@@ -148,25 +146,21 @@ class PatrimonioCalculator {
         const inicioStr = this.container.querySelector('#apuracao-inicio').value;
         const fimStr = this.container.querySelector('#apuracao-fim').value;
         const indice = this.container.querySelector('#indice-param').value;
+        const honorariosPercent = this.container.querySelector('#honorarios-percent').valueAsNumber || 0;
 
-        if (!inicioStr || !fimStr || inicioStr.length < 7 || fimStr.length < 7) {
-            alert("Por favor, preencha o Período de Apuração completo.");
-            return;
-        }
+        if (!inicioStr || !fimStr) { alert("Preencha o Período de Apuração."); return; }
 
         const startDate = this.parseMaskedDate(inicioStr);
         const endDate = this.parseMaskedDate(fimStr);
         const dataCitacao = new Date(this.mockProcesso.dataCitacao);
 
-        if (!startDate || !endDate || endDate < startDate) {
-            alert("A data final do período de apuração deve ser maior ou igual à data inicial.");
-            return;
-        }
-        
+        if (!startDate || !endDate || endDate < startDate) { alert("Datas de período inválidas."); return; }
+
         let tableHTML = `<h3 class="text-2xl font-semibold text-primary-blue mb-4">Demonstrativo de Cálculo Patrimonial</h3><div class="overflow-x-auto rounded-lg shadow-lg"><table class="calculation-table w-full border-collapse table-auto"><thead><tr class="bg-gray-200 text-gray-700 uppercase text-xs leading-normal"><th class="py-3 px-4 text-left">Período</th><th class="py-3 px-4 text-left">Dados Patrimoniais</th><th class="py-3 px-4 text-right">VALOR</th><th class="py-3 px-4 text-right">JUROS (%)</th><th class="py-3 px-4 text-right">ÍNDICE</th><th class="py-3 px-4 text-right">VALOR ATUALIZADO</th></tr></thead><tbody id="patrimonio-tbody" class="bg-white text-gray-600 text-sm font-light divide-y divide-gray-200">`;
-        
+
         let totais = { valor: 0, juros: 0, atualizado: 0 };
-        const valorHomologado = this.parseCurrency(this.container.querySelector('#valorHomologado').value);
+        const valorCondenacao = this.parseCurrency(this.container.querySelector('#valorCondenacao').value);
+        const valorPerito = this.parseCurrency(this.container.querySelector('#valorPerito').value);
 
         const taxaCorrecaoMensal = this.mockIndicesTaxas[indice] || 0;
         const taxaJurosCompensatoriosMensal = this.mockProcesso.taxaJurosCompensatoriosAnual / 12;
@@ -174,7 +168,7 @@ class PatrimonioCalculator {
 
         this.mockPatrimonioData.forEach(item => {
             const numMesesTotal = this.countMonths(startDate, endDate);
-            
+
             const correcaoMonetaria = item.valor * taxaCorrecaoMensal * numMesesTotal;
             const jurosCompensatorios = item.valor * taxaJurosCompensatoriosMensal * numMesesTotal;
             let jurosMoratorios = 0;
@@ -188,41 +182,31 @@ class PatrimonioCalculator {
             const valorAtualizado = item.valor + correcaoMonetaria + jurosTotais;
             const jurosPercentual = item.valor > 0 ? (jurosTotais / item.valor) * 100 : 0;
 
-            tableHTML += `<tr class="calculation-row">
-                <td class="py-3 px-4 text-left">${inicioStr} - ${fimStr}</td>
-                <td class="py-3 px-4 text-left">${item.dados}</td>
-                <td class="py-3 px-4 text-right">${this.formatToCurrency(item.valor)}</td>
-                <td class="py-3 px-4 text-right">${jurosPercentual.toFixed(2)}%</td>
-                <td class="py-3 px-4 text-right">${indice}</td>
-                <td class="py-3 px-4 text-right font-bold">${this.formatToCurrency(valorAtualizado)}</td>
-            </tr>`;
-            
+            tableHTML += `<tr class="calculation-row"><td class="py-3 px-4 text-left">${inicioStr} - ${fimStr}</td><td class="py-3 px-4 text-left">${item.dados}</td><td class="py-3 px-4 text-right">${this.formatToCurrency(item.valor)}</td><td class="py-3 px-4 text-right">${jurosPercentual.toFixed(2)}%</td><td class="py-3 px-4 text-right">${indice}</td><td class="py-3 px-4 text-right font-bold">${this.formatToCurrency(valorAtualizado)}</td></tr>`;
+
             totais.valor += item.valor;
             totais.juros += jurosTotais;
             totais.atualizado += valorAtualizado;
         });
-        
+
         const jurosPercentualTotal = totais.valor > 0 ? (totais.juros / totais.valor) * 100 : 0;
+        const valorHonorarios = totais.atualizado * (honorariosPercent / 100);
+        const totalRevisado = totais.atualizado + valorHonorarios;
 
         tableHTML += `</tbody><tfoot>
-                        <tr class="bg-gray-100 font-semibold">
-                            <td class="py-4 px-4 text-right" colspan="2">Total Geral</td>
-                            <td class="py-4 px-4 text-right">${this.formatToCurrency(totais.valor)}</td>
-                            <td class="py-4 px-4 text-right">${jurosPercentualTotal.toFixed(2)}%</td>
-                            <td class="py-4 px-4 text-right">-</td>
-                            <td class="py-4 px-4 text-right">${this.formatToCurrency(totais.atualizado)}</td>
-                        </tr>
+                        <tr class="bg-gray-100 font-semibold"><td class="py-3 px-4 text-right" colspan="2">Subtotal</td><td class="py-3 px-4 text-right">${this.formatToCurrency(totais.valor)}</td><td class="py-3 px-4 text-right">${jurosPercentualTotal.toFixed(2)}%</td><td class="py-3 px-4 text-right">-</td><td class="py-3 px-4 text-right">${this.formatToCurrency(totais.atualizado)}</td></tr>
+                        <tr class="bg-gray-100 font-semibold"><td class="py-3 px-4 text-right" colspan="5">Honorários (${honorariosPercent}%)</td><td class="py-3 px-4 text-right">${this.formatToCurrency(valorHonorarios)}</td></tr>
                       </tfoot></table></div>`;
-        
+
         resultsContainer.innerHTML = tableHTML;
-        
-        this.container.querySelector('#valorExecutadoSummary').textContent = this.formatToCurrency(valorHomologado);
-        this.container.querySelector('#valorAtualizadoSummary').textContent = this.formatToCurrency(totais.atualizado);
-        this.container.querySelector('#proveitoEconomicoSummary').textContent = this.formatToCurrency(totais.atualizado - valorHomologado);
+
+        this.container.querySelector('#valorExecutadoSummary').textContent = this.formatToCurrency(valorPerito);
+        this.container.querySelector('#valorAtualizadoSummary').textContent = this.formatToCurrency(totalRevisado);
+        this.container.querySelector('#proveitoEconomicoSummary').textContent = this.formatToCurrency(valorPerito - totalRevisado);
     }
 
     saveCalculation() { alert('Funcionalidade "Salvar Cálculo" em desenvolvimento.'); }
-    
+
     generateReport() {
         const results = this.container.querySelector('#results-container');
         if (!results.innerHTML.trim()) {
@@ -257,13 +241,13 @@ class PatrimonioCalculator {
         const printArea = document.createElement('div');
         printArea.id = 'print-area';
         const header = `<div class="mb-8 border-b pb-4"><h2 class="text-2xl font-bold">Relatório de Cálculo Patrimonial</h2><p><strong>Processo:</strong> ${this.container.querySelector('#processNumber').value}</p><p><strong>Requerentes:</strong> ${requerentes}</p></div>`;
-        
+
         printArea.innerHTML = header + results.innerHTML + summaryHTML;
         document.body.appendChild(printArea);
         window.print();
         document.body.removeChild(printArea);
     }
-    
+
     clearForm() {
         if (confirm("Tem certeza que deseja limpar todos os dados do cálculo?")) {
             const fieldsToClear = ['#processNumber', '#requerentesInput', '#apuracao-inicio', '#apuracao-fim', '#valorHomologado', '#dados-patrimoniais', '#lei-aplicada-param', '#indice-param', '#juros-param', '#observacoes'];
@@ -271,7 +255,7 @@ class PatrimonioCalculator {
                 const el = this.container.querySelector(id);
                 if (el) el.value = '';
             });
-            
+
             this.container.querySelector('#results-container').innerHTML = '';
             this.container.querySelector('#valorExecutadoSummary').textContent = 'R$ 0,00';
             this.container.querySelector('#valorAtualizadoSummary').textContent = 'R$ 0,00';
@@ -279,7 +263,7 @@ class PatrimonioCalculator {
             alert('Formulário limpo com sucesso.');
         }
     }
-    
+
     // Funções utilitárias
     formatToCurrency(v) { return (Number(v) || 0).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }); }
     parseCurrency(v) { return typeof v !== 'string' ? (Number(v) || 0) : (Number(v.replace(/R\$\s?/, '').replace(/\./g, '').replace(',', '.')) || 0); }
@@ -288,9 +272,9 @@ class PatrimonioCalculator {
     countMonths(start, end) {
         let startDate = (start instanceof Date) ? start : this.parseMaskedDate(start);
         let endDate = (end instanceof Date) ? end : this.parseMaskedDate(end);
-        
+
         if (!startDate || !endDate || endDate < startDate) return 0;
-        
+
         return (endDate.getFullYear() - startDate.getFullYear()) * 12 + (endDate.getMonth() - startDate.getMonth()) + 1;
     }
 }
