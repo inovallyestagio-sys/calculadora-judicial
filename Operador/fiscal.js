@@ -21,7 +21,7 @@ class FiscalCalculator {
 
         // Mock de taxas para simulação de cálculo
         this.mockIndicesTaxas = {
-            'SELIC': { taxa: 0.009, nome: 'SELIC' } // Taxa mensal simulada para SELIC
+            'SELIC': { taxa: 0.005, nome: 'SELIC' } // Taxa mensal simulada para SELIC
         };
 
         this.simularExtracaoHandler = this.simularExtracao.bind(this);
@@ -42,7 +42,7 @@ class FiscalCalculator {
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-end">
                         <div><label class="block text-sm font-medium text-gray-700 mb-2">Processo nº</label><input type="text" id="processNumber" class="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-100" readonly></div>
                         <div><label class="block text-sm font-medium text-gray-700 mb-2">Parte Requerente</label><input type="text" id="requerentesInput" class="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-100" readonly></div>
-                        <div><label class="block text-sm font-medium text-gray-700 mb-2">Valor da Ação R$</label><input type="text" id="valorAcao" class="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-100" readonly></div>
+                        <div><label class="block text-sm font-medium text-gray-700 mb-2">Valor da Ação R$</label><input type="text" id="valorAcao" class="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-100"></div>
                         <div></div> <div><label class="block text-sm font-medium text-gray-700 mb-2">Início</label><input type="text" id="apuracao-inicio" class="w-full px-3 py-2 border border-gray-300 rounded-lg" placeholder="mm/aaaa" maxlength="7"></div>
                         <div><label class="block text-sm font-medium text-gray-700 mb-2">Fim</label><input type="text" id="apuracao-fim" class="w-full px-3 py-2 border border-gray-300 rounded-lg" placeholder="mm/aaaa" maxlength="7"></div>
                     </div>
@@ -183,7 +183,7 @@ class FiscalCalculator {
                             <td class="py-2 px-4 text-right">${this.formatToCurrency(valorHonorarios)}</td>
                         </tr>
                         <tr class="bg-gray-200 text-gray-800 font-bold">
-                            <td class="py-3 px-4 text-right" colspan="4">Total Geral Devido</td>
+                            <td class="py-3 px-4 text-right" colspan="4">Total Geral Corrigido</td>
                             <td class="py-3 px-4 text-right">${this.formatToCurrency(totalDevido)}</td>
                         </tr>
                       </tfoot></table></div>`;
@@ -193,7 +193,7 @@ class FiscalCalculator {
         const valorAcao = this.parseCurrency(this.container.querySelector('#valorAcao').value);
         this.container.querySelector('#valorAcaoSummary').textContent = this.formatToCurrency(valorAcao);
         this.container.querySelector('#valorDevidoSummary').textContent = this.formatToCurrency(totalDevido);
-        this.container.querySelector('#diferencaSummary').textContent = this.formatToCurrency(totalDevido - valorAcao);
+        this.container.querySelector('#diferencaSummary').textContent = this.formatToCurrency(valorAcao - totalDevido);
     }
     
     saveCalculation() { alert('Funcionalidade "Salvar Cálculo" em desenvolvimento.'); }
