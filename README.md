@@ -1,8 +1,8 @@
-# ADRCALC - Sistema de Cálculos Judiciais
+# INOVACALC - Sistema de Cálculos Judiciais
 
 ## 1. Visão Geral do Projeto
 
-[cite_start]O **ADRCALC** é um protótipo de uma aplicação web (SaaS) projetada para a **Procuradoria Geral do Município de Várzea Grande**[cite: 146, 147], com o objetivo de modernizar e automatizar a elaboração de cálculos judiciais. [cite_start]O sistema substitui um fluxo de trabalho anteriormente manual, baseado em planilhas Excel [cite: 83] [cite_start]e consultas a múltiplos sistemas, como PJE e SAJ. [cite: 8, 10]
+[cite_start]O **INOVACALC** é um protótipo de uma aplicação web (SaaS) projetada para a **Procuradoria Geral do Município de Várzea Grande**[cite: 146, 147], com o objetivo de modernizar e automatizar a elaboração de cálculos judiciais. [cite_start]O sistema substitui um fluxo de trabalho anteriormente manual, baseado em planilhas Excel [cite: 83] [cite_start]e consultas a múltiplos sistemas, como PJE e SAJ. [cite: 8, 10]
 
 A arquitetura é baseada em uma **Single-Page Application (SPA)**, construída com HTML, CSS (Tailwind CSS) e JavaScript puro, com um design modular que permite a fácil expansão para novos tipos de cálculo.
 
