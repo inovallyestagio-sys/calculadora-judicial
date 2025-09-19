@@ -53,9 +53,9 @@ A arquitetura é baseada em uma **Single-Page Application (SPA)**, construída c
 - Cálculo de **juros moratórios** (aplicados a partir de 1º de julho do ano seguinte).  
 - Inclusão de honorários e valor do perito no montante final.  
 
-### 4.3. Trabalhista (Genérico)
+### 4.3. Trabalhista
 - Cálculo mensal para verbas trabalhistas (insalubridade, periculosidade etc.).  
-- Regra de **URV**: para períodos anteriores a 2004, aplica índice fixo de 11,98%.  
+- Regra de Preenchimento: para períodos anteriores a 2004, o sistema não consulta dados do turmalina, precisa de preenchimento manual.  
 - Permite multa e honorários conforme Art. 523 do CPC.  
 
 ### 4.4. Fiscal
