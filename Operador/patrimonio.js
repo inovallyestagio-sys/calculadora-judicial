@@ -5,8 +5,8 @@ class PatrimonioCalculator {
             processNumber: '3333333-33.2025.8.11.0003',
             requerentes: ["João Patrimônio"],
             valorCondenacao: 50000.00,
-            valorPerito: 110457.00, // Novo campo
-            honorariosPercent: 10, // Novo campo
+            valorPerito: 110457.00, 
+            honorariosPercent: 10, 
             dataCitacao: '2021-06-30',
             taxaJurosCompensatoriosAnual: 0.06
         };

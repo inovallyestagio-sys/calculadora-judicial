@@ -2,7 +2,6 @@ class FiscalCalculator {
     constructor(container) {
         this.container = container;
         
-        // Mock de dados para simulação
         this.mockProcesso = { 
             processNumber: '4444444-44.2025.8.11.0004', 
             requerentes: ["Empresa ABC Ltda"],
@@ -10,18 +9,16 @@ class FiscalCalculator {
             inicioPeriodo: '01/2022',
             fimPeriodo: '12/2023',
             dataCorrecao: '2025-09-16',
-            honorariosPercent: 10 // Agora em percentual
+            honorariosPercent: 10 
         };
         
-        // Mock de valores anuais que seriam extraídos do processo
         this.mockValoresAnuais = [
             { ano: 2022, valor: 5800.00 },
             { ano: 2023, valor: 3200.00 }
         ];
 
-        // Mock de taxas para simulação de cálculo
         this.mockIndicesTaxas = {
-            'SELIC': { taxa: 0.005, nome: 'SELIC' } // Taxa mensal simulada para SELIC
+            'SELIC': { taxa: 0.005, nome: 'SELIC' } 
         };
 
         this.simularExtracaoHandler = this.simularExtracao.bind(this);
@@ -247,7 +244,6 @@ class FiscalCalculator {
         }
     }
     
-    // Funções utilitárias
     formatToCurrency(v) { return (Number(v) || 0).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }); }
     parseCurrency(v) { return typeof v !== 'string' ? (Number(v) || 0) : (Number(v.replace(/R\$\s?/, '').replace(/\./g, '').replace(',', '.')) || 0); }
     applyDateMask(event) { let input = event.target; let value = input.value.replace(/\D/g, ''); if (value.length > 2) value = `${value.substring(0, 2)}/${value.substring(2, 6)}`; input.value = value; }

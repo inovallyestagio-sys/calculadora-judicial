@@ -8,7 +8,7 @@ class CivelCalculator {
             devedor: "Estado de Mato Grosso",
             valorDivida: 150000.00,
             modalidadePagamento: 'RPV',
-            leiArtigo: 'automatico', // Padrão para RPV
+            leiArtigo: 'automatico', 
             jurosMora: '6',
             incidenciaJurosJulho: 'sim',
             tipoDivida: 'Não Tributária',
@@ -161,7 +161,7 @@ class CivelCalculator {
 
         if (modalidade === 'Precatório') {
             leiArtigoSelect.value = 'EC 113/2021';
-        } else { // Para RPV e Comum, o padrão é o cálculo automático em cadeia
+        } else { 
             leiArtigoSelect.value = 'automatico';
         }
 
@@ -242,7 +242,7 @@ class CivelCalculator {
     }
 
     simularCalculoRegraUnica(valorInicial, regra) {
-        const valorFinal = valorInicial * 1.65; // Simulação genérica para regras específicas
+        const valorFinal = valorInicial * 1.65; 
         return [{
             descricao: `Cálculo Unificado pela regra (${regra})`,
             valorBase: valorInicial,

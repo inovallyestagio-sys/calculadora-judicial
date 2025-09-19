@@ -3,12 +3,10 @@ class TrabalhistaCalculator {
         this.container = container;
         this.eventos = ['Salário Base', 'URV', 'Insalubridade', 'Periculosidade', 'Adicional Noturno', 'Abono de Permanência', 'Licença prêmio', 'Férias', 'Terço', 'FGTS', 'Hora Atividade', 'Hora Extra', '13º Salário'];
         
-        // --- NOVO: Configuração para identificar eventos anuais e o mês de sua ocorrência ---
         this.eventosConfig = {
-            'Férias': { tipo: 'anual', mes: 0 },      // Lançado em Janeiro (Mês 0) para simulação
-            'Terço': { tipo: 'anual', mes: 0 },       // Lançado em Janeiro (Mês 0) para simulação
-            '13º Salário': { tipo: 'anual', mes: 11 } // Lançado em Dezembro (Mês 11)
-            // Eventos não listados aqui são considerados 'mensal' por padrão.
+            'Férias': { tipo: 'anual', mes: 0 },      
+            'Terço': { tipo: 'anual', mes: 0 },      
+            '13º Salário': { tipo: 'anual', mes: 11 } 
         };
 
         this.mockProcesso = { 
@@ -28,7 +26,6 @@ class TrabalhistaCalculator {
     }
 
     static getHtml() {
-        // O HTML permanece o mesmo, sem alterações aqui.
         return `
             <div id="formFields">
                 <div class="mb-8"><p class="text-gray-600">Tipo de Cálculo > Trabalhista</p></div>
@@ -168,7 +165,7 @@ class TrabalhistaCalculator {
             const mesRef = `${(mes + 1).toString().padStart(2, '0')}/${currentDate.getFullYear()}`;
 
             selectedEvents.forEach(evento => {
-                const config = this.eventosConfig[evento] || { tipo: 'mensal' }; // Padrão é mensal
+                const config = this.eventosConfig[evento] || { tipo: 'mensal' }; 
                 
                 let processarEsteMes = false;
                 if (config.tipo === 'mensal') {
@@ -258,7 +255,7 @@ class TrabalhistaCalculator {
         return { devido, recebido, diferenca, valorCorrigido, juros, indice };
     }
 
-    recalculateRow() { /* A lógica de recálculo manual precisaria ser aprimorada para este novo modelo */ this.updateTotals(); }
+    recalculateRow() { this.updateTotals(); }
 
     updateTotals() {
         let totalPrincipalCorrigido = 0;

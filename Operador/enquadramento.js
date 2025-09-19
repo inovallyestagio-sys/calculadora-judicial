@@ -8,8 +8,8 @@ class EnquadramentoCalculator {
         this.eventos = ['Salário Base', '13º Salário', 'Férias', 'FGTS', 'ATS'];
 
         this.eventosConfig = {
-            '13º Salário': { tipo: 'anual', mes: 11 }, // Dezembro
-            'Férias': { tipo: 'anual', mes: 0 }      // Janeiro (Simulação)
+            '13º Salário': { tipo: 'anual', mes: 11 },
+            'Férias': { tipo: 'anual', mes: 0 }   
         };
 
         this.simularExtracaoHandler = this.simularExtracao.bind(this);
@@ -50,7 +50,6 @@ class EnquadramentoCalculator {
         `;
     }
 
-    // init() e destroy() permanecem os mesmos do seu código
     init() {
         this.uploadArea = this.container.querySelector('#uploadArea');
         this.calculateBtn = this.container.querySelector('#calculateBtn');
@@ -90,7 +89,6 @@ class EnquadramentoCalculator {
         this.clearBtn.removeEventListener('click', this.clearFormHandler);
     }
     
-    // openModal, closeModal, simularExtracao, populateRequerentesParams, openRequerenteParamModal, consultarTurmalina permanecem os mesmos
     openModal(id) {
         const modal = document.getElementById(id);
         if(!modal) return;
@@ -471,10 +469,8 @@ class EnquadramentoCalculator {
         printArea.id = 'print-area';
         const header = `<div class="mb-8 border-b pb-4"><h2 class="text-2xl font-bold">Relatório de Cálculo de Enquadramento</h2><p><strong>Processo:</strong> ${this.container.querySelector('#processNumber').value}</p><p><strong>Requerentes:</strong> ${this.container.querySelector('#requerentesInput').value}</p></div>`;
 
-        // Clona o conteúdo para não modificar a tela original
         const contentToPrint = results.cloneNode(true);
 
-        // Adiciona o resumo a cada bloco de requerente no conteúdo clonado
         contentToPrint.querySelectorAll('.requerente-bloco').forEach(bloco => {
             const nome = bloco.dataset.requerenteNome;
             const config = this.requerenteConfigStorage[nome];

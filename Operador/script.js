@@ -1,7 +1,6 @@
 // script.js
 
 document.addEventListener('DOMContentLoaded', () => {
-    // --- Variáveis e Seletores de Elementos (Unificados) ---
     const userDropdownBtn = document.getElementById('userDropdownBtn');
     const userDropdown = document.getElementById('userDropdown');
     const calculationTypeSelect = document.getElementById('calculationType');
@@ -10,7 +9,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const sidebar = document.getElementById('sidebar');
     let selectedCalculationType = null;
 
-    // Seletores da nova lógica de cálculo
     const valorAcaoInput = document.getElementById('valorAcaoInput');
     const valorRecebidoTurmalina = document.getElementById('valorRecebidoTurmalina');
     const cargoTurmalina = document.getElementById('cargoTurmalina');
@@ -30,7 +28,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const proveitoEconomicoSummary = document.getElementById('proveitoEconomico');
     const fileInput = document.getElementById('fileInput');
 
-    // --- Dados de Simulação (Mock Data) ---
     const mockData = {
         turmalina: {
             valorRecebido: 15000.00,
@@ -55,7 +52,6 @@ document.addEventListener('DOMContentLoaded', () => {
         ]
     };
 
-    // --- Lógica de Interação da Interface (UI) ---
 
     function toggleUserDropdown() {
         userDropdown.classList.toggle('show');
@@ -77,9 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
         formFields.classList.toggle('hidden', !isTrabalhista);
     });
 
-    // --- Lógica da Nova Aplicação ---
 
-    // Preenche os selects com dados mock na inicialização
     mockData.leis.forEach(lei => {
         const option = document.createElement('option');
         option.value = lei.id;
@@ -94,7 +88,6 @@ document.addEventListener('DOMContentLoaded', () => {
         nivelClasseSelect.appendChild(option);
     });
 
-    // Atualiza índice e taxa quando a lei muda
     leiVigenteSelect.addEventListener('change', () => {
         const selectedLei = mockData.leis.find(l => l.id === leiVigenteSelect.value);
         if (selectedLei) {
@@ -103,7 +96,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Manipulador de upload de arquivo
     fileInput.addEventListener('change', (event) => {
         if (event.target.files.length > 0) {
             handleFileUpload(event.target.files[0]);
@@ -122,7 +114,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // --- Funções Principais (Expostas para onclick) ---
 
     window.consultarTurmalina = function () {
         alert("Consultando dados no sistema Turmalina (simulação)...");
@@ -165,14 +156,12 @@ document.addEventListener('DOMContentLoaded', () => {
             totalJuros += jurosCompensatorios;
         });
         
-        // Atualiza os totais da tabela (no tfoot)
         totalDevidoDisplay.value = formatToCurrency(totalDevido);
         totalRecebidoDisplay.value = formatToCurrency(totalRecebido);
         totalSingeloDisplay.value = formatToCurrency(totalSingelo);
         totalAtualizadoDisplay.value = formatToCurrency(totalAtualizado);
         totalJurosDisplay.value = formatToCurrency(totalJuros);
         
-        // Atualiza o resumo final
         const valorAcao = parseFloat(valorAcaoInput.value.replace('R$', '').replace(/\./g, '').replace(',', '.') || 0);
         const valorDevidoCorrigido = totalAtualizado;
         const proveitoEconomico = valorAcao - valorDevidoCorrigido;
@@ -182,7 +171,6 @@ document.addEventListener('DOMContentLoaded', () => {
         proveitoEconomicoSummary.textContent = formatToCurrency(proveitoEconomico);
     };
     
-    // --- Funções de Manipulação da Tabela ---
 
     function addTableRow(lei, descricao, mesRef, nivelClasse, devido, recebido, singelo, atualizado, juros) {
         const newRow = document.createElement('tr');
@@ -228,7 +216,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    // --- Funções de Botões de Ação ---
 
     window.saveCalculation = function() {
         console.log('Cálculo salvo!');
@@ -255,7 +242,6 @@ document.addEventListener('DOMContentLoaded', () => {
             proveitoEconomicoSummary.textContent = 'R$ 0,00';
             calculationTableBody.innerHTML = '';
             
-            // Limpa os totais no rodapé da tabela
             totalDevidoDisplay.value = 'R$ 0,00';
             totalRecebidoDisplay.value = 'R$ 0,00';
             totalSingeloDisplay.value = 'R$ 0,00';
@@ -264,16 +250,13 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    // --- Funções Utilitárias ---
     
-    // Formata um número para o padrão monetário BRL (para exibição)
     function formatToCurrency(numberValue) {
         if (isNaN(numberValue)) return 'R$ 0,00';
         const value = Number(numberValue).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
         return value;
     }
     
-    // Formata o valor de um campo de input enquanto o usuário digita
     window.formatCurrencyInput = function(input) {
         let value = input.value.replace(/\D/g, '');
         if (value) {
