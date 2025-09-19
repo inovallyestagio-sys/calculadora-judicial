@@ -75,16 +75,7 @@ A arquitetura é baseada em uma **Single-Page Application (SPA)**, construída c
 
 ---
 
-## 5. Futuras Implementações
-- **Backend e Banco de Dados**: persistência real de dados e maior segurança.  
-- **Módulo Administrativo**:
-  - Cadastro e gerenciamento de usuários/perfis.  
-  - Gestão de tabelas salariais e leis.  
-- **Integração Real**: conexão com APIs de PJE, SAJ e Turmalina.  
-
----
-
-## 6. Como Executar o Protótipo
+## 5. Como Executar o Protótipo
 1. Certifique-se de que todos os arquivos (`.html`, `.css`, `.js`) estão na mesma pasta.  
 2. Abra o arquivo **`index.html`** em um navegador web moderno.  
 
